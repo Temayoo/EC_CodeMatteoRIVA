@@ -6,51 +6,37 @@
         <div class="modal-body p-0 pb-5">
             <div class="scrollable-y-auto" data-scrollable="true" data-scrollable-max-height="auto"
                  data-scrollable-offset="300px">
-                <form>
-                    <div class="flex flex-col gap-5 p-5">
-                        <div class="flex flex-col gap-1">
-                            <label for="book" class="form-label font-normal text-gray-900">Livre</label>
-                            <select id="book" class="select">
-                                <option>Livre 1</option>
-                                <option>Livre 2</option>
-                            </select>
-                        </div>
+                {{ form_start(bookReadForm) }}
+                <div class="flex flex-col gap-5 p-5">
+                    <div class="flex flex-col gap-1">
+                        <label for="book" class="form-label font-normal text-gray-900">Livre</label>
+                        {{ form_widget(bookReadForm.book_id, { 'attr': { 'class': 'select' } }) }}
+                    </div>
 
-                        <div class="flex flex-col gap-1">
-                            <label class="form-label font-normal text-gray-900">Mes notes</label>
-                            <div class="flex flex-col w-full gap-1">
-                            <textarea name="description" class="textarea"
-                                      placeholder="Notez-ici les idées importantes de l'oeuvre."></textarea>
-                            </div>
-                        </div>
-
-                        <div class="flex flex-col gap-1">
-                            <label for="book" class="form-label font-normal text-gray-900">Note</label>
-                            <select id="book" class="select" name="rating">
-                                <option>1</option>
-                                <option>1.5</option>
-                                <option>2</option>
-                                <option>2.5</option>
-                                <option>3</option>
-                                <option>3.5</option>
-                                <option>4</option>
-                                <option>4.5</option>
-                                <option>5</option>
-                            </select>
-                        </div>
-
-                        <div class="flex flex-col gap-1">
-                            <label class="switch">
-                                <span class="switch-label font-normal text-gray-900">Lecture terminée</span>
-                                <input name="check" type="checkbox" value="0"/>
-                            </label>
-                        </div>
-
-                        <div class="flex">
-                            <button type="submit" class="btn btn-primary">Enregistrer</button>
+                    <div class="flex flex-col gap-1">
+                        <label class="form-label font-normal text-gray-900">Mes notes</label>
+                        <div class="flex flex-col w-full gap-1">
+                            {{ form_widget(bookReadForm.description, { 'attr': { 'class': 'textarea' } }) }}
                         </div>
                     </div>
-                </form>
+
+                    <div class="flex flex-col gap-1">
+                        <label for="book" class="form-label font-normal text-gray-900">Note</label>
+                        {{ form_widget(bookReadForm.rating, { 'attr': { 'class': 'select' } }) }}
+                    </div>
+
+                    <div class="flex flex-col gap-1">
+                        <label class="switch">
+                            <span class="switch-label font-normal text-gray-900">Lecture terminée</span>
+                            {{ form_widget(bookReadForm.is_read, { 'attr': { 'class': 'checkbox' } }) }}
+                        </label>
+                    </div>
+
+                    <div class="flex">
+                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                    </div>
+                </div>
+                {{ form_end(bookReadForm) }}
             </div>
         </div>
     </div>
