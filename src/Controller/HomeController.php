@@ -30,7 +30,8 @@ class HomeController extends AbstractController
 
         $userId = $this->getUser()->getId();
 
-        $booksRead  = $this->bookReadRepository->findByUserId($userId, false);
+        $booksRead  = $this->bookReadRepository->findBy(['user_id' => $userId, 'is_read' => true]);
+        $booksReading = $this->bookReadRepository->findBy(['user_id' => $userId, 'is_read' => false]);
 
         $bookRead = new BookRead();
         $form = $this->createForm(LectureType::class, $bookRead);
@@ -58,6 +59,7 @@ class HomeController extends AbstractController
             'name'      => 'Accueil',
             'userId'    => $userId,
             'bookReadForm' => $form->createView(),
+            'booksReading' => $booksReading,
         ]);
     }
 }
