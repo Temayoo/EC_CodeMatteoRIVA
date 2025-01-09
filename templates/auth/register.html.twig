@@ -26,7 +26,7 @@
                     <div>
                         {{ form_widget(formRegister.email, {'attr': {'class': 'input', 'placeholder': 'Adresse email'}}) }}
                     </div>
-                    <div class="text-red-600 text-sm">
+                    <div class="text-danger text-sm">
                         {{ form_errors(formRegister.email) }}
                     </div>
                 </div>
@@ -42,7 +42,7 @@
                             </i>
                         </button>
                     </div>
-                    <div class="text-red-600 text-sm">
+                    <div class="text-danger text-sm">
                         {{ form_errors(formRegister.password) }}
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                             </i>
                         </button>
                     </div>
-                    <div class="text-red-600 text-sm">
+                    <div class="text-danger text-sm">
                         {{ form_errors(formRegister.confirmPassword) }}
                     </div>
                 </div>
@@ -70,7 +70,7 @@
                     <span class="checkbox-label text-sm text-gray-700">
                         J'accepte les <a class="text-2sm link" href="#">GCU</a>
                     </span>
-                    <div class="text-red-600 text-sm">
+                    <div class="text-danger text-sm">
                         {{ form_errors(formRegister.agreeTerms) }}
                     </div>
                 </div>
