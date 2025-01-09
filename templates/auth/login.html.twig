@@ -32,6 +32,7 @@
                     </div>
                     <div class="input" data-toggle-password="true">
                         <input name="_password" placeholder="Mot de passe" type="password" value=""/>
+
                         <button class="btn btn-icon" data-toggle-password-trigger="true" type="button">
                             <i class="ki-filled ki-eye text-gray-500 toggle-password-active:hidden">
                             </i>
@@ -39,9 +40,16 @@
                             </i>
                         </button>
                     </div>
+                    {% if error %}
+                        <div class="alert alert-danger text-sm">
+                            <p class ="text-danger "> Email ou Mot de Passe Incorrect </p>
+                        </div>
+                    {% endif %}
                 </div>
                 <button type="submit" class="btn btn-primary flex justify-center grow">Connexion</button>
             </form>
+
+
         </div>
     </div>
 {% endblock %}

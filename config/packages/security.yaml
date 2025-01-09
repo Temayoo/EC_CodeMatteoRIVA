@@ -17,6 +17,13 @@ security:
             lazy: true
             provider: app_user_provider
 
+            form_login:
+                login_path: auth.login
+                check_path: auth.login
+            logout:
+                path: /logout
+
+
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
 
