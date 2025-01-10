@@ -34,14 +34,18 @@ class HomeController extends AbstractController
         $booksReading = $this->bookReadRepository->findBy(['user_id' => $userId, 'is_read' => false]);
 
         $bookRead = new BookRead();
+        $editBookRead = new BookRead();
+
         $form = $this->createForm(LectureType::class, $bookRead);
         $form->handleRequest($request);
+
+        $formEdit = $this->createForm(LectureType::class, $editBookRead);
+        $formEdit->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             if ($bookRead->getIsRead() === null) {
                 $bookRead->setIsRead(false);
             }
-
             $bookRead->setRating($form->get('rating')->getData());
             $bookRead->setDescription($form->get('description')->getData());
             $bookRead->setUserId($userId);
@@ -54,11 +58,26 @@ class HomeController extends AbstractController
 
             return $this->redirectToRoute('app.home');
         }
+
+        if ($formEdit->isSubmitted() && $formEdit->isValid()) {
+            if ($editBookRead) {
+                $editBookRead->setRating($formEdit->get('rating')->getData());
+                $editBookRead->setDescription($formEdit->get('description')->getData());
+                $editBookRead->setIsRead($formEdit->get('is_read')->getData() ?? false);
+                $editBookRead->setUpdatedAt(new \DateTime());
+
+                $entityManager->flush();
+
+                return $this->redirectToRoute('app.home');
+            }
+
+        }
         return $this->render('pages/home.html.twig', [
             'booksRead' => $booksRead,
             'name'      => 'Accueil',
             'userId'    => $userId,
             'bookReadForm' => $form->createView(),
+            'formEdit'   => $formEdit->createView(),
             'booksReading' => $booksReading,
         ]);
     }
