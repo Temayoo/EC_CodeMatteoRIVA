@@ -6,6 +6,7 @@ use AllowDynamicProperties;
 use App\Entity\BookRead;
 use App\Form\LectureType;
 use App\Repository\BookReadRepository;
+use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -13,12 +14,15 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-class HomeController extends AbstractController
+#[AllowDynamicProperties] class HomeController extends AbstractController
 {
     // Inject the repository via the constructor
-    public function __construct(BookReadRepository $bookReadRepository)
+
+    public function __construct(BookReadRepository $bookReadRepository, CategoryRepository $categoryRepository, EntityManagerInterface $entityManager)
     {
         $this->bookReadRepository = $bookReadRepository;
+        $this->categoryRepository = $categoryRepository;
+        $this->entityManager = $entityManager;
     }
 
     #[Route('/', name: 'app.home')]
@@ -34,18 +38,16 @@ class HomeController extends AbstractController
         $booksReading = $this->bookReadRepository->findBy(['user_id' => $userId, 'is_read' => false]);
 
         $categories = [];
-
+        $allCategories = $this->categoryRepository->findAll();
+        foreach ($allCategories as $category) {
+            $categories[$category->getId()] = [
+                'name' => $category->getName(),
+                'count' => 0
+            ];
+        }
         foreach ($booksRead as $bookRead) {
             $category = $bookRead->getBookId()->getCategoryId();
-
             if ($bookRead->getIsRead()) {
-                if (!isset($categories[$category->getId()])) {
-                    $categories[$category->getId()] = [
-                        'name' => $category->getName(),
-                        'count' => 0
-                    ];
-                }
-
                 $categories[$category->getId()]['count']++;
             }
         }
