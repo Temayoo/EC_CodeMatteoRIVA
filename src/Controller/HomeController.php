@@ -33,6 +33,31 @@ class HomeController extends AbstractController
         $booksRead  = $this->bookReadRepository->findBy(['user_id' => $userId, 'is_read' => true]);
         $booksReading = $this->bookReadRepository->findBy(['user_id' => $userId, 'is_read' => false]);
 
+        $categories = [];
+
+        foreach ($booksRead as $bookRead) {
+            $category = $bookRead->getBookId()->getCategoryId();
+
+            if ($bookRead->getIsRead()) {
+                if (!isset($categories[$category->getId()])) {
+                    $categories[$category->getId()] = [
+                        'name' => $category->getName(),
+                        'count' => 0
+                    ];
+                }
+
+                $categories[$category->getId()]['count']++;
+            }
+        }
+
+        $categoryLabels = [];
+        $categoryData = [];
+
+        foreach ($categories as $category) {
+            $categoryLabels[] = $category['name'];
+            $categoryData[] = $category['count'];
+        }
+
         $bookRead = new BookRead();
         $editBookRead = new BookRead();
 
@@ -79,6 +104,8 @@ class HomeController extends AbstractController
             'bookReadForm' => $form->createView(),
             'formEdit'   => $formEdit->createView(),
             'booksReading' => $booksReading,
+            'categoryLabels' => $categoryLabels,
+            'categoryData' => $categoryData,
         ]);
     }
 }
