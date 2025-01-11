@@ -87,7 +87,7 @@ use Symfony\Component\Routing\Attribute\Route;
         }
 //////////////////////////////////////////////////////////////////////////////////////////
 
-
+        // gestion d'ajout de livre
         $bookRead = new BookRead();
         $form = $this->createForm(LectureType::class, $bookRead);
         $form->handleRequest($request);

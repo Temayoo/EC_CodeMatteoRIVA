@@ -14,6 +14,7 @@ class ExploreController extends AbstractController
     #[Route('/explore', name: 'app_explore')]
     public function index(BookReadRepository $bookReadRepository): Response
     {
+        // get all Books read
         $booksRead = $bookReadRepository->findAll();
 
         return $this->render('pages/explore.html.twig', [

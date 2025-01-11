@@ -18,6 +18,7 @@ class LectureType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        // creation different attente pour le form d'ajout de livre
         $builder->add('book_id', EntityType::class, [
             'required' => true,
             'class' => Book::class,
