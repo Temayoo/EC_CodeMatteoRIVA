@@ -6,29 +6,29 @@
         <div class="modal-body p-0 pb-5">
             <div class="scrollable-y-auto" data-scrollable="true" data-scrollable-max-height="auto"
                  data-scrollable-offset="300px">
-                {{ form_start(formEdit) }}
+                {{ form_start(formEdit, { 'attr': { 'id': 'book_read_form_edit' }}) }}
                 <div class="flex flex-col gap-5 p-5">
                     <div class="flex flex-col gap-1">
                         <label for="book" class="form-label font-normal text-gray-900">Livre</label>
-                        {{ form_widget(formEdit.book_id, { 'attr': { 'class': 'select', 'id': 'edit-book-id' } }) }}
+                        {{ form_widget(formEdit.book_id, { 'attr': { 'class': 'select'  }})}}
                     </div>
 
                     <div class="flex flex-col gap-1">
                         <label class="form-label font-normal text-gray-900">Mes notes</label>
                         <div class="flex flex-col w-full gap-1">
-                            {{ form_widget(formEdit.description, { 'attr': { 'class': 'textarea', 'id': 'edit-description' } }) }}
+                            {{ form_widget(formEdit.description, { 'attr': { 'class': 'textarea'  } }) }}
                         </div>
                     </div>
 
                     <div class="flex flex-col gap-1">
                         <label for="book" class="form-label font-normal text-gray-900">Note</label>
-                        {{ form_widget(formEdit.rating, { 'attr': { 'class': 'select', 'id': 'edit-rating' } }) }}
+                        {{ form_widget(formEdit.rating, { 'attr': { 'class': 'select' } }) }}
                     </div>
 
                     <div class="flex flex-col gap-1">
                         <label class="switch">
                             <span class="switch-label font-normal text-gray-900">Lecture terminée</span>
-                            {{ form_widget(formEdit.is_read, { 'attr': { 'class': 'checkbox', 'id': 'edit-is-read' } }) }}
+                            {{ form_widget(formEdit.is_read, { 'attr': { 'class': 'checkbox' } }) }}
                         </label>
                     </div>
 
